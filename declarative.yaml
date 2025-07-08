@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-declarative # Name of pod
+  labels:
+    app: nginx-declarative      # Labels 
+spec:
+  containers:
+  - name: nginx-container       # Name of the container within the Pod
+    image: nginx:latest         # The Docker image to use
+    ports:
+    - containerPort: 80         # The port the application inside the container listens on
+
+    
