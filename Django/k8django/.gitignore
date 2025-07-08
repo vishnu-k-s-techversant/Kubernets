@@ -1,0 +1,47 @@
+# Byte-code files
+*.pyc
+__pycache__/
+
+*migrations 
+
+
+# Virtual environment
+env/
+venv/
+.venv/
+
+# Database
+db.sqlite3
+
+# Media and static files (if collected locally for development)
+media/
+static_collected/
+
+# IDE-specific files (e.g., VS Code, PyCharm)
+.vscode/
+.idea/
+
+# Environment variables and secrets
+.env
+local_settings.py
+
+# Logs
+*.log
+
+# Test and coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+
+# Celery beat schedule file
+celerybeat-schedule
+
+# IPython Notebook checkpoints
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db

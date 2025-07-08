@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8django-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8django
+  template:
+    metadata:
+      labels:
+        app: k8django
+    spec:
+      containers:
+        - name: k8django-container
+          # image: vishnu12ks/k8django:latest
+          image: k8django:latest
+          imagePullPolicy: Never   # IMPORTANT FOR LOCAL SET UP 
+          ports:
+            - containerPort: 8000
+
