@@ -179,8 +179,88 @@ kubectl get nodes -o wide
     scale up 
         kubectl scale deployment <deployment_name> --replicas=5 
 
+
+# Services   
+
+    Service is a fundamental concept that provides a stable network endpoint for a set of Pods. It acts as an abstraction layer, allowing other applications or external clients to reliably access your applications running in Pods, even as those Pods are created, destroyed, and have their IP addresses changed.
+
+    1.ClusterIP
+
+        Create configuration for deployment file 
+            service_deployment.yaml file 
+            kubectl apply -f service_deployment.yaml
         
+        Create configuration for cluster ip service file 
+            service_clusterip.yaml file 
+            kubectl apply -f service_clusterip.yaml
+
+        Verify the status 
+            kubectl get deployment 
+            kubectl get service  
+
+        Create a test pod to access the service 
+            kubectl run test-client --rm -it --image=busybox --restart=Never -- sh 
+            in the coommand line 
+             wget -qO- http://<service_name>
+             EX :     wget -qO- http://service-name 
+
+    
+    2.NodePort 
+
+        Create configuration for deployment file 
+            service_nodeport_deployment.yaml
+            kubectl apply -f service_nodeport_deployment.yaml
+        
+        Create configuration for cluster ip service file 
+            service_nodeport.yaml
+            kubectl apply -f service_nodeport.yaml 
 
 
+        To access in web(using pport forward )
+            kubectl port-forward <service_name> 8080:80
+            kubectl port-forward service/nginx-service 8080:80
 
+
+# Namespaces 
+
+    Is like a virtual cluster inside your actual cluster.
+    It’s a logical separation used to organize and manage resources like pods, services, deployments, etc.
+
+    EX : 
+        Production
+        Development
+        Instead of running everything in the same namespace (default), you create:
+            kubectl create namespace prod
+            kubectl create namespace dev
+
+        Now, you can deploy the same app in both:
+            kubectl apply -f myapp.yaml -n prod
+            kubectl apply -f myapp.yaml -n dev
+
+    Verify status 
+        kubectl get ns
+
+        kubectl describe namespace <name>
+        EX:  kubectl describe namespace default
+
+    Creating Namespace 
+        1. Imperative way            
+            kubectl create namespace my-namespace 
+        2. Declarative way
+            create yaml file 
+                    apiVersion: v1
+                    kind: Namespace
+                    metadata:
+                    name: my-namespace
+
+    Creating resourses using namespaces
+        1. 
+            kubectl create deployment nginx-deploy --image=nginx -n <namespce_name>
+            EX : kubectl create deployment nginx-deploy --image=nginx -n default 
+          
+            kubectl get pods -n default
+
+
+        2. create yaml file 
+            kubectl apply -f namespace.yaml   
 
